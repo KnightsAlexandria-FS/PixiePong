@@ -30,7 +30,7 @@ app
         side: "top",
         hit: false,
         g: new PIXI.Graphics()
-          .beginFill("#008000")
+          .beginFill("#FFFFFF")
           .drawRect(0, 0, 800, 10)
           .endFill(),
       },
@@ -39,7 +39,7 @@ app
         side: "bottom",
         hit: false,
         g: new PIXI.Graphics()
-          .beginFill("#008000")
+          .beginFill("#FFFFFF")
           .drawRect(0, 790, 800, 10)
           .endFill(),
       },
@@ -48,7 +48,7 @@ app
         side: "left",
         hit: false,
         g: new PIXI.Graphics()
-          .beginFill("#008000")
+          .beginFill("#FFFFFF")
           .drawRect(0, 0, 10, 800)
           .endFill(),
       },
@@ -57,7 +57,7 @@ app
         side: "right",
         hit: false,
         g: new PIXI.Graphics()
-          .beginFill("#008000")
+          .beginFill("#FFFFFF")
           .drawRect(790, 0, 10, 800)
           .endFill(),
       },
@@ -70,9 +70,9 @@ app
         circle.x += dx;
         circle.y += dy;
 
-        if (circle.x + radius >= 800) {
-          dx *= -1;
-          updateBorder(3);
+        if (circle.y - radius <= 0) {
+          dy *= -1;
+          updateBorder(0);
         }
 
         if (circle.y + radius >= 800) {
@@ -85,23 +85,24 @@ app
           updateBorder(2);
         }
 
-        if (circle.y - radius <= 0) {
-          dy *= -1;
-          updateBorder(0);
+        if (circle.x + radius >= 800) {
+          dx *= -1;
+          updateBorder(3);
         }
 
         const finished = borders.every((b) => b.hit == true);
 
         if (finished) {
           app.ticker.remove(gameLoop);
-          resolve("YAY! All borders hit!");
+          resolve("Mission Completed! All borders  have been hit! ");
         }
       };
 
       function updateBorder(index) {
-        if (!borders[index].hit) {
+        if (borders[index].hit == false) {
           borders[index].hit = true;
-          borders[index].g.tint = 0xffffff;
+          borders[index].g.tint = 0xffff00;
+          console.log("Hit border: " + borders[index].side);
         }
       }
 
