@@ -1,0 +1,14 @@
+body {
+  margin: 0;
+  padding: 0;
+  background-color: #7fcff4;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  height: 100vh;
+}
+
+#gameCon {
+  border: 5px solid #313030;
+  box-shadow: 0 0 20px rgba(26, 17, 17, 0.5);
+}
