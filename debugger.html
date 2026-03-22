@@ -1,0 +1,110 @@
+<html>
+  <head>
+    <title>Using a debugger</title>
+  </head>
+  <body>
+    <h1>Welcome!</h1>
+    <p>In this example you will learn how to operate the debugger inside of the Chrome browser. Note that the process is almost identical for other browsers such as Firefox, however you may need to translate the process using your own knowledge into other browsers since menus, and buttons may be labled differently than Chrome.</p>
+
+    <div class="step">
+      <h3>Step 1</h3>
+      <p>&#8594; Let's first open up our inspector tools by right clicking and selecting "Inspect" at the very bottom of the context menu.</p>
+    </div>
+    
+    <div class="step" style="display: none;">
+      <h3>Step 2</h3>
+      <p>
+        &#8594; After that you should see a panel appear on the left 
+        hand side, and a preselected tab called "Page."
+      </p>
+    </div>
+
+    <div class="step" style="display: none;">
+      <h3>Step 3</h3>
+      <p>
+        &#8594; Use the left hand "Page" panel to find the JavaScript 
+        code attached to this page. Note that inline scripts will show 
+        up under the filename of this html file.</p>
+    </div>
+
+    <div class="step" style="display: none;">
+      <h3>Step 3</h3>
+      <p>
+        &#8594; Use the left hand "Page" panel to find the JavaScript 
+        code attached to this page. Note that inline scripts will show 
+        up under the filename of this html file.
+      </p>
+    </div>
+
+    <button id="next-step-btn">Next Step &#8594;</button>
+  
+    <!-- 
+        There is a bug in the JavaScript code below. Let's use 
+        the debugger tool to fix it. 
+    -->
+    <script type="text/javascript">
+    // Contains all of our steps in the HTML above
+    const steps         = document.getElementsByClassName("step")
+
+    // Represents the "Next Step" button for the user to click
+    const nextStepBtn   = document.getElementById("next-step-btn")
+
+    // This set keeps track of which steps have been marked complete
+    const stepsComplete = new Set()
+
+    // Updates the UI and adds a strike through each heading and paragraph
+    // if the step in question has been marked completed already.
+    function updateSteps()
+    {
+
+      // Iterate through each of our steps
+      steps.forEach((step) => {
+
+        // We will set the value of crossedOut to "line-through" if 
+        // this step has been found in our stepsComplete set. Otherwise 
+        // it defaults to an empty string (therefore no cross through).
+        let crossedOut = (stepsComplete.has(step)) ? "line-through" : ""
+
+        // Iterates through each step's children elements (h3, and p) and 
+        // assigns the "text-decoration" style to our crossedOut value
+        step.children.forEach((child) => child.style.textDecoration = crossedOut)
+
+      })
+
+    }
+
+    // Adds an event listener for when the user clicks the next button 
+    // which triggers whichever step is currently completed + 1 (plus one)
+    // to be added to our stepsComplete set. 
+    nextStepBtn.addEventListener('click', (e) => {
+
+      // Iterate through our steps array with an index
+      for(let i = 0; i < steps.length; i++) {
+
+        // If this step is NOT in our stepsComplete set
+        if (!stepsComplete.has(steps[i])) {
+
+          // Add the current step to our stepsComplete set
+          stepsComplete.add(steps[i])
+
+          // Show the next step in the steps array if it 
+          // exists and isn't past the last step
+          if (i + 1 <= steps.length) {
+
+            // Changes the display css property to "block" from "none"
+            steps[i + 1].style.display = "block"
+
+          }
+
+          // Issues a break in our loop so that it doesn't continue
+          // to loop through the rest of our steps.
+          break;
+
+        }
+
+      }
+
+    })
+    </script>
+  </body>
+</html>
